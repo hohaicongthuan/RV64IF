@@ -7,6 +7,18 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
     output  [63:0] out_inst_addr, out_addr, out_wr_data;
     output  [4:0] out_flag;
 
+    // Data buffers
+    reg     [223:0] if_id_dat_buff;
+    reg     [324:0] id_ex_dat_buff;
+    reg     [260:0] ex_mem_dat_buff;
+    reg     [324:0] mem_wb_dat_buff;
+
+    // Control buffers
+    reg     [:0] if_id_ctrl_buff;
+    reg     [:0] id_ex_ctrl_buff;
+    reg     [:0] ex_mem_ctrl_buff;
+    reg     [:0] mem_wb_ctrl_buff;
+
     // Control signals
     // parameter PAM_int_RF_wr_dat_src = in_ctrl_signal[22:20];    // Integer register file write data source
     // parameter PAM_fp_RF_wr_dat_src = in_ctrl_signal[19:18];     // FP register file write data source
@@ -43,17 +55,22 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
     assign fp_RF_write_data = (!in_ctrl_signal[18] & !in_ctrl_signal[17]) ? in_DM_data[31:0] : fp_wr_dat_wire_1;
     assign fp_wr_dat_wire_1 = (!in_ctrl_signal[18] & in_ctrl_signal[17]) ? out_addr[31:0] : FPU_Out[31:0];
 
+    // Programme Counter
     REG PC_Reg_Inst0(
         .in_data(PC_Src),
         .out_data(out_inst_addr),
         .Clk(Clk),
         .Rst(Rst_N)
     );
+
+    // Immediate Generator
     ImmGen ImmGen_Inst0 (
         .in_data(in_inst),
         .in_inst_type(in_ctrl_signal[14:12]),
         .out_data(ImmGen_Out)
     );
+
+    // Arithmetic & Logic Unit
     ALU ALU_Inst0(
         .in_rs1(int_RF_out_A),
         .in_rs2(rs2_Src),
@@ -63,6 +80,8 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .out_data(out_addr),
         .out_ALU_flag(out_flag)
     );
+
+    // Floating-point Unit
     FP_Unit FP_Unit_Inst0(
         .in_rs1(fp_RF_out_A),
         .in_rs2(fp_RF_out_B),
@@ -72,6 +91,8 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .in_addsub_ctrl(in_inst[27]),
         .in_ctrl_minmax_sgnj_cmp(in_inst[14:12])
     );
+
+    // Integer Register File
     RegisterFile RegisterFile_Inst0 (
         .data_in(int_RF_write_data),
         .data_outA(int_RF_out_A),
@@ -82,6 +103,8 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .write_En(in_ctrl_signal[16]),
         .Clk(Clk)
     );
+
+    // Floating-point Register File
     FP_RegisterFile FP_RegisterFile_Inst0(
         .data_in(fp_RF_write_data),
         .data_outA(fp_RF_out_A),
