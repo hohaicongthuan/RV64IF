@@ -28,8 +28,8 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
     wire    [ 7:0] ex_mem_ctrl_buff_in, ex_mem_ctrl_buff_out;
     wire    [ 6:0] mem_wb_ctrl_buff_in, mem_wb_ctrl_buff_out;
 
-    wire    [31:0] fp_RF_out_A, fp_RF_out_B, fp_RF_write_data, fp_wr_dat_wire_1;
-    wire    [63:0] int_RF_out_A, int_RF_out_B, FPU_Out, ImmGen_Out, PC_Src, rs2_Src, PC_Src_wire_1, int_RF_write_data, int_wr_dat_wire_1, int_wr_dat_wire_2, int_wr_dat_wire_3, PC_Add_Four, PC_Add_Imm, PC_From_ALU, PC_data, ALU_Out, DM_data_src;
+    wire    [31:0] fp_RF_out_A, fp_RF_out_B, fp_wr_dat_wire_1;
+    wire    [63:0] int_RF_out_A, int_RF_out_B, FPU_Out, ImmGen_Out, PC_Src, rs2_Src, PC_Src_wire_1, int_RF_write_data, int_wr_dat_wire_1, int_wr_dat_wire_2, int_wr_dat_wire_3, PC_Add_Four, PC_Add_Imm, PC_From_ALU, PC_data, ALU_Out, DM_data_src, fp_RF_write_data;
     wire    [223:0] if_id_dat_buff_in, if_id_dat_buff_out;
     wire    [324:0] id_ex_dat_buff_in, id_ex_dat_buff_out, ex_mem_dat_buff_in, ex_mem_dat_buff_out, mem_wb_dat_buff_in, mem_wb_dat_buff_out;
 
@@ -47,7 +47,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .in_data_0(PC_Add_Four),
         .in_data_1(PC_Add_Imm),
         .in_data_2(PC_From_ALU),
-        .in_data_3(),
+        .in_data_3(64'd0),
         .out_data(PC_Src),
         .in_sel(in_ctrl_signal[12:11])
     );
@@ -59,9 +59,9 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .in_data_2(mem_wb_dat_buff_out[196:133]),
         .in_data_3(mem_wb_dat_buff_out[132:69]),
         .in_data_4(mem_wb_dat_buff_out[324:261]),
-        .in_data_5(),
-        .in_data_6(),
-        .in_data_7(),
+        .in_data_5(64'd0),
+        .in_data_6(64'd0),
+        .in_data_7(64'd0),
         .in_sel(mem_wb_ctrl_buff_out[6:4]),
         .out_data(int_RF_write_data)
     );
@@ -71,7 +71,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .in_data_0(mem_wb_dat_buff_out[68:5]),
         .in_data_1(mem_wb_dat_buff_out[196:133]),
         .in_data_2(mem_wb_dat_buff_out[132:69]),
-        .in_data_3(),
+        .in_data_3(64'd0),
         .out_data(fp_RF_write_data),
         .in_sel(mem_wb_ctrl_buff_out[3:2])
     );
@@ -97,7 +97,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .Clk(Clk),
         .Rst(Rst_N)
     );
-    assign id_ex_dat_buff_in = {if_id_dat_buff_out[223:96], int_RF_out_A, rs2_Src, fp_RF_out_A, fp_RF_out_B, if_id_dat_buff_out[76:71]};
+    assign id_ex_dat_buff_in = {if_id_dat_buff_out[223:96], int_RF_out_A, rs2_Src, fp_RF_out_A, fp_RF_out_B, if_id_dat_buff_out[75:71]};
 
     // EX - MEM Data Buffer
     REG #(.DATA_WIDTH(ex_mem_dat_buff_size)) ex_mem_dat_buff(
@@ -219,7 +219,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
     // FLOATING-POINT REGISTER FILE //
     //////////////////////////////////
     FP_RegisterFile FP_RegisterFile_Inst0(
-        .data_in(fp_RF_write_data),
+        .data_in(fp_RF_write_data[31:0]),
         .data_outA(fp_RF_out_A),
         .data_outB(fp_RF_out_B),
         .addr_A(if_id_dat_buff_out[83:79]),
