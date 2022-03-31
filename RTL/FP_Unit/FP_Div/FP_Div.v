@@ -1,11 +1,13 @@
 // Top-level module of floating-point divisor
 
-module FP_Div(in_numA, in_numB, out_result);
+module FP_Div(in_numA, in_numB, in_Clk, in_Rst_N, in_start, out_result, out_stall);
     parameter DATA_WIDTH = 32;
     parameter EXP_WIDTH = 8;
     parameter MANT_WIDTH = 23;
 
+    input   in_Clk, in_Rst_N, in_start;
     input   [DATA_WIDTH - 1:0] in_numA, in_numB;
+    output  out_stall;
     output  [DATA_WIDTH - 1:0] out_result;
 
     // Internal wires
@@ -23,10 +25,13 @@ module FP_Div(in_numA, in_numB, out_result);
     Mant_Div Mant_Div_Inst0(
         .in_dividend({2'd1, numA[22:0]}),
         .in_divisor({1'b1, numB[22:0]}),
+        .in_Clk(in_Clk),
+        .in_Rst_N(in_Rst_N),
+        .in_start(in_start),
         .out_quotient(result_quotient),
-        .out_remainder()
+        .out_stall(out_stall)
     );
-    DivNorm DivNorm_Inst0(
+    Div_Norm Div_Norm_Inst0(
         .in_Exp(numA[30:23] - numB[30:23]),
         .in_Mant(result_quotient),
         .out_Exp(normalised_exp),

@@ -1,5 +1,5 @@
 // Divider Normaliser
-module DivNorm(in_Exp, in_Mant, out_Exp, out_Mant);
+module Div_Norm(in_Exp, in_Mant, out_Exp, out_Mant);
     parameter EXP_WIDTH = 8;
     parameter MANT_WIDTH = 23;
 
