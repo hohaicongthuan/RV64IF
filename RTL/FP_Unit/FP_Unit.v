@@ -1,12 +1,13 @@
 // This module is the top-level of the Floating-point Unit
 
-module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_addsub_ctrl, in_ctrl_minmax_sgnj_cmp);
-    input   in_addsub_ctrl;
+module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_addsub_ctrl, in_ctrl_minmax_sgnj_cmp, in_Clk, in_Rst_N, in_start, out_stall);
+    input   in_addsub_ctrl, in_Clk, in_Rst_N, in_start;
     input   [1:0] in_fmt;
     input   [2:0] in_ctrl_minmax_sgnj_cmp;
     input   [3:0] in_FPU_Op;
     input   [31:0] in_rs1, in_rs2;
 
+    output  out_stall;
     output  [63:0] out_data;
 
     // Internal wires
@@ -28,7 +29,11 @@ module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_addsub_ctrl, in_c
     FP_Div FP_Div_Inst0 (
         .in_numA(in_rs1),
         .in_numB(in_rs2),
-        .out_result(FP_Div_Out)
+        .in_Clk(in_Clk),
+        .in_Rst_N(in_Rst_N),
+        .in_start(in_start),
+        .out_result(FP_Div_Out),
+        .out_stall(out_stall)
     );
     FP_MinMax FP_MinMax_Inst0 (
         .in_numA(in_rs1),
