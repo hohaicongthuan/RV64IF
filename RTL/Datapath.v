@@ -23,6 +23,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
     ////////////////////
     // INTERNAL WIRES //
     ////////////////////
+    wire    stall_signal;
     wire    [24:0] if_id_ctrl_buff_in, if_id_ctrl_buff_out;
     wire    [23:0] id_ex_ctrl_buff_in, id_ex_ctrl_buff_out;
     wire    [ 7:0] ex_mem_ctrl_buff_in, ex_mem_ctrl_buff_out;
@@ -87,7 +88,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .out_data(if_id_dat_buff_out),
         .Clk(Clk),
         .Rst_N(Rst_N),
-        .En(1'b1)
+        .En(!stall_signal)
     );
     assign if_id_dat_buff_in = {PC_Add_Imm, PC_Add_Four, in_inst, ImmGen_Out};
 
@@ -97,7 +98,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .out_data(id_ex_dat_buff_out),
         .Clk(Clk),
         .Rst_N(Rst_N),
-        .En(1'b1)
+        .En(!stall_signal)
     );
     assign id_ex_dat_buff_in = {if_id_dat_buff_out[223:96], int_RF_out_A, rs2_Src, fp_RF_out_A, fp_RF_out_B, if_id_dat_buff_out[75:71]};
 
@@ -107,7 +108,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .out_data(ex_mem_dat_buff_out),
         .Clk(Clk),
         .Rst_N(Rst_N),
-        .En(1'b1)
+        .En(!stall_signal)
     );
     assign ex_mem_dat_buff_in = {id_ex_dat_buff_out[324:197], ALU_Out, FPU_Out, DM_data_src, id_ex_dat_buff_out[4:0]};
 
@@ -117,7 +118,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .out_data(mem_wb_dat_buff_out),
         .Clk(Clk),
         .Rst_N(Rst_N),
-        .En(1'b1)
+        .En(!stall_signal)
     );
     assign mem_wb_dat_buff_in = {ex_mem_dat_buff_out[324:69], in_DM_data, ex_mem_dat_buff_out[4:0]};
 
@@ -130,7 +131,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .out_data(if_id_ctrl_buff_out),
         .Clk(Clk),
         .Rst_N(Rst_N),
-        .En(1'b1)
+        .En(!stall_signal)
     );
     assign if_id_ctrl_buff_in = {in_ctrl_signal[22:16], in_ctrl_signal[10:0], in_inst[21:20], in_inst[30], in_inst[27], in_inst[14:12]};
 
@@ -140,7 +141,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .out_data(id_ex_ctrl_buff_out),
         .Clk(Clk),
         .Rst_N(Rst_N),
-        .En(1'b1)
+        .En(!stall_signal)
     );
     assign id_ex_ctrl_buff_in = {if_id_ctrl_buff_out[24:18], if_id_ctrl_buff_out[16:0]};
 
@@ -150,7 +151,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .out_data(ex_mem_ctrl_buff_out),
         .Clk(Clk),
         .Rst_N(Rst_N),
-        .En(1'b1)
+        .En(!stall_signal)
     );
     assign ex_mem_ctrl_buff_in = {id_ex_ctrl_buff_out[23:17], id_ex_ctrl_buff_out[7]};
 
@@ -160,7 +161,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .out_data(mem_wb_ctrl_buff_out),
         .Clk(Clk),
         .Rst_N(Rst_N),
-        .En(1'b1)
+        .En(!stall_signal)
     );
     assign mem_wb_ctrl_buff_in = {ex_mem_ctrl_buff_out[7:1]};
 
@@ -172,7 +173,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .out_data(out_inst_addr),
         .Clk(Clk),
         .Rst_N(Rst_N),
-        .En(1'b1)
+        .En(!stall_signal)
     );
 
     /////////////////////////
@@ -211,7 +212,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .in_Clk(Clk),
         .in_Rst_N(Rst_N),
         .in_start(),
-        .out_stall()
+        .out_stall(stall_signal)
     );
 
     ///////////////////////////

@@ -1,4 +1,4 @@
-module ControlUnit(in_inst, in_flag, out_ctrl_signal);
+module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
     // Operation codes (Opcodes)
     parameter [6:0] OP      = 7'b0110011; parameter [6:0] OP_IMM      = 7'b0010011;
     parameter [6:0] LUI_Op  = 7'b0110111; parameter [6:0] AUIPC_Op    = 7'b0010111;
@@ -48,9 +48,11 @@ module ControlUnit(in_inst, in_flag, out_ctrl_signal);
     parameter FLE_S         = 23'b01100100100000000001000; parameter FMV_X_W    = 23'b01100100100000001001110;
     parameter FMV_W_X       = 23'b00001010100000000000000;
     
+    input   in_prediction;  // Prediction from Branch Prediction Unit
     input   [4:0] in_flag;
     input   [31:0] in_inst;
 
+    output  out_flush;      // Flush pipeline signal in case of wrong prediction
     output reg  [22:0] out_ctrl_signal;
 
     always @ (*) begin
