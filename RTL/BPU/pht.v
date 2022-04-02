@@ -1,8 +1,6 @@
 // Pattern History Table
 
 module pht(in_addr, in_data, in_Clk, in_Rst_N, out_prediction);
-    integer i;
-    
     parameter   ADDR_WIDTH = 9;
     parameter   ENTRY_NUM = 512;    // 2^9 = 512 entries
 
@@ -10,22 +8,16 @@ module pht(in_addr, in_data, in_Clk, in_Rst_N, out_prediction);
     input   [ADDR_WIDTH - 1:0] in_addr;
     output  out_prediction;
 
-    reg     [1:0] counter [ENTRY_NUM - 1:0];
+    wire    [ENTRY_NUM - 1:0] prediction_out, selector;
 
-    always @ (posedge in_Clk or negedge in_Rst_N) begin
-        if (!in_Rst_N) begin
-            for (i = 0; i < ENTRY_NUM; i = i + 1) begin
-                counter[i] <= 0;
-            end
-        end else begin
-            case (counter[in_addr])
-                2'b00: counter[in_addr] <= (in_data) ? counter[in_addr] + 1 : counter[in_addr];
-                2'b01: counter[in_addr] <= (in_data) ? counter[in_addr] + 1 : counter[in_addr - 1];
-                2'b10: counter[in_addr] <= (in_data) ? counter[in_addr] + 1 : counter[in_addr - 1];
-                2'b11: counter[in_addr] <= (in_data) ? counter[in_addr]     : counter[in_addr - 1];
-            endcase
-        end
-    end
+    sat_counter counter[ENTRY_NUM - 1:0] (
+        .in_data(in_data),
+        .out_prediction(prediction_out),
+        .in_Clk(in_Clk),
+        .in_Rst_N(in_Rst_N),
+        .in_En(selector)
+    );
 
-    assign out_prediction = (counter[in_addr] >= 2'b10) ? 1'b1 : 1'b0;
+    assign selector = 512'd1 << in_addr; // Used Barrel Shifter as Decoder here, dunno if it's okay
+    assign out_prediction = prediction_out[in_addr];
 endmodule
