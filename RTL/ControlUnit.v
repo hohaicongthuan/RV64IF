@@ -87,12 +87,12 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
             JALR_Op: out_ctrl_signal = JALR;
             BRANCH: begin
                 case (in_inst[14:12])
-                    3'b000: out_ctrl_signal = (in_flag[4]) ? BEQ_TAKEN : BEQ_UNTAKEN;
-                    3'b001: out_ctrl_signal = (in_flag[4]) ? BNE_UNTAKEN : BNE_TAKEN;
-                    3'b100: out_ctrl_signal = (in_flag[3]) ? BLT_TAKEN : BLT_UNTAKEN;
-                    3'b101: out_ctrl_signal = (in_flag[1]) ? BGE_TAKEN : BGE_UNTAKEN;
-                    3'b110: out_ctrl_signal = (in_flag[2]) ? BLTU_TAKEN : BLTU_UNTAKEN;
-                    3'b111: out_ctrl_signal = (in_flag[0]) ? BGEU_TAKEN : BGEU_UNTAKEN;
+                    3'b000: out_ctrl_signal = (in_flag[4] | in_prediction) ? BEQ_TAKEN : BEQ_UNTAKEN;
+                    3'b001: out_ctrl_signal = (in_flag[4] | in_prediction) ? BNE_UNTAKEN : BNE_TAKEN;
+                    3'b100: out_ctrl_signal = (in_flag[3] | in_prediction) ? BLT_TAKEN : BLT_UNTAKEN;
+                    3'b101: out_ctrl_signal = (in_flag[1] | in_prediction) ? BGE_TAKEN : BGE_UNTAKEN;
+                    3'b110: out_ctrl_signal = (in_flag[2] | in_prediction) ? BLTU_TAKEN : BLTU_UNTAKEN;
+                    3'b111: out_ctrl_signal = (in_flag[0] | in_prediction) ? BGEU_TAKEN : BGEU_UNTAKEN;
                     default: out_ctrl_signal = 23'd0;
                 endcase
             end

@@ -1,10 +1,10 @@
-module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, out_addr, out_wr_data, out_flag, out_DM_write_en);
+module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, out_addr, out_wr_data, out_flag, out_DM_write_en, out_prediction);
     input   Clk, Rst_N;
     input   [22:0] in_ctrl_signal;
     input   [31:0] in_inst;
     input   [63:0] in_DM_data;
 
-    output  out_DM_write_en;
+    output  out_DM_write_en, out_prediction;
     output  [63:0] out_inst_addr, out_addr, out_wr_data;
     output  [4:0] out_flag;
 
@@ -241,5 +241,16 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .writeAddr(mem_wb_ctrl_buff_out[4:0]),
         .write_En(mem_wb_ctrl_buff_out[0]),
         .Clk(Clk)
+    );
+
+    ////////////////////////////
+    // BRANCH PREDICTION UNIT //
+    ////////////////////////////
+    BPU BPU_Inst0(
+        .in_PC(out_inst_addr[8:0]),
+        .in_hit(2'b11),
+        .in_Clk(Clk),
+        .in_Rst_N(Rst_N),
+        .out_prediction(out_prediction)
     );
 endmodule
