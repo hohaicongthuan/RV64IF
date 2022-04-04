@@ -1,23 +1,51 @@
 // Controller for the mantissa divider in the 32-bit floating-point divider (FP_Div.v)
+// This is a Finite State Machine with 26 states
 
 module Mant_Div_Ctrl(in_Clk, in_start, in_Rst_N, out_load, out_shift_en, out_stall);
     input   in_Clk, in_start, in_Rst_N;
     output  out_load, out_shift_en, out_stall;
 
-    wire    [4:0] counter_out, counter_add_one, counter_dat_in;
+    reg     [4:0] State_Reg;    // State register
 
-    REG #(.DATA_WIDTH(5)) Counter(
-        .in_data(counter_dat_in),
-        .out_data(counter_out),
-        .Clk(in_Clk),
-        .Rst_N(in_Rst_N),
-        .En(in_start)
-    );
+    // Next-state Logics
+    always @ (posedge in_Clk or negedge in_Rst_N) begin
+        if (!in_Rst_N) begin
+            State_Reg <= 0;
+        end else begin
+            case (State_Reg)
+                5'd0: State_Reg <= (in_start) ? 5'd1 : 5'd0;
+                5'd1: State_Reg <= 5'd2;
+                5'd2: State_Reg <= 5'd3;
+                5'd3: State_Reg <= 5'd4;
+                5'd4: State_Reg <= 5'd5;
+                5'd5: State_Reg <= 5'd6;
+                5'd6: State_Reg <= 5'd7;
+                5'd7: State_Reg <= 5'd8;
+                5'd8: State_Reg <= 5'd9;
+                5'd9: State_Reg <= 5'd10;
+                5'd10: State_Reg <= 5'd11;
+                5'd11: State_Reg <= 5'd12;
+                5'd12: State_Reg <= 5'd13;
+                5'd13: State_Reg <= 5'd14;
+                5'd14: State_Reg <= 5'd15;
+                5'd15: State_Reg <= 5'd16;
+                5'd16: State_Reg <= 5'd17;
+                5'd17: State_Reg <= 5'd18;
+                5'd18: State_Reg <= 5'd19;
+                5'd19: State_Reg <= 5'd20;
+                5'd20: State_Reg <= 5'd21;
+                5'd21: State_Reg <= 5'd22;
+                5'd22: State_Reg <= 5'd23;
+                5'd23: State_Reg <= 5'd24;
+                5'd24: State_Reg <= 5'd25;
+                5'd25: State_Reg <= 5'd0;   // Idle state
+                default: State_Reg <= 5'd0;
+            endcase
+        end
+    end
 
-    assign counter_add_one = counter_out + 5'd1;
-    assign counter_dat_in = (counter_out >= 5'd29) ? 5'd0 : counter_add_one;
-
-    assign out_load = (counter_out == 5'd0) ? 1'b1 : 1'b0;
-    assign out_shift_en = (counter_out >= 5'd28 | counter_out == 5'd0) ? 1'b0 : 1'b1;
-    assign out_stall = (counter_out >= 5'd28 | counter_out == 5'd0) ? 1'b0 : 1'b1;
+    // Output logics
+    assign out_load     = (State_Reg == 5'd1) ? 1'b1 : 1'b0;
+    assign out_shift_en = (State_Reg == 5'd0 | State_Reg == 5'd25) ? 1'b0 : 1'b1;
+    assign out_stall    = (State_Reg == 5'd0 | State_Reg == 5'd25) ? 1'b0 : 1'b1;
 endmodule

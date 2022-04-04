@@ -8,7 +8,7 @@ module RV64IF_top(in_DM_data, in_inst, in_Clk, Rst_N, out_inst_addr, out_addr, o
 
     wire    bpu_prediction;
     wire    [4:0] wire_flag;
-    wire    [22:0] wire_ctrl_signal;
+    wire    [23:0] wire_ctrl_signal;
 
     Datapath Datapath_Inst0 (
         .in_ctrl_signal(wire_ctrl_signal),

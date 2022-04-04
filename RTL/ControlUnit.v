@@ -9,51 +9,51 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
     parameter [6:0] OP_FP   = 7'b1010011; parameter [6:0] OP_32       = 7'b0111011;
 
     // Functions/Instructions Control Signals
-    parameter ADDI          = 23'b01000100000010000000000; parameter SLTI       = 23'b01000100000010010000000;
-    parameter ANDI          = 23'b01000100000010000100000; parameter ORI        = 23'b01000100000010001000000;
-    parameter XORI          = 23'b01000100000010001100000; parameter SLTIU      = 23'b01000100000010010100000;
-    parameter SLLI          = 23'b01000100000010011000000; parameter SRLI       = 23'b01000100000010011100000;
-    parameter SRAI          = 23'b01000100000010011100000; parameter LUI        = 23'b01000100010010100000000;
-    parameter AUIPC         = 23'b10000100010000000000000; parameter ADD        = 23'b01000100100000000000000;
-    parameter SLT           = 23'b01000100100000010000000; parameter SLTU       = 23'b01000100100000010100000;
-    parameter AND           = 23'b01000100100000000100000; parameter OR         = 23'b01000100100000001000000;
-    parameter XOR           = 23'b01000100100000001100000; parameter SLL        = 23'b01000100100000011000000;
-    parameter SRL           = 23'b01000100100000011100000; parameter SUB        = 23'b01000100100000101000000;
-    parameter SRA           = 23'b01000100100000011100000; parameter JAL        = 23'b00100100110100000000000;
-    parameter JALR          = 23'b00100100001010000000000; parameter BEQ_TAKEN  = 23'b00000001000100010000000;
-    parameter BEQ_UNTAKEN   = 23'b00000001000000010000000; parameter BNE_TAKEN  = 23'b00000001000100010000000;
-    parameter BNE_UNTAKEN   = 23'b00000001000000010000000; parameter BLT_TAKEN  = 23'b00000001000100010000000;
-    parameter BLT_UNTAKEN   = 23'b00000001000000010000000; parameter BLTU_TAKEN = 23'b00000001000100010100000;
-    parameter BLTU_UNTAKEN  = 23'b00000001000000010100000; parameter BGE_TAKEN  = 23'b00000001000100010000000;
-    parameter BGE_UNTAKEN   = 23'b00000001000000010000000; parameter BGEU_TAKEN = 23'b00000001000100010100000;
-    parameter BGEU_UNTAKEN  = 23'b00000001000000010100000; parameter ADDIW      = 23'b01000100000010000000000;
-    parameter SLLIW         = 23'b01000100000010011000000; parameter SRLIW      = 23'b01000100000010011100000;
-    parameter SRAIW         = 23'b01000100000010011100000; parameter ADDW       = 23'b01000100000000000000000;
-    parameter SLLW          = 23'b01000100000000011000000; parameter SRLW       = 23'b01000100000000011100000;
-    parameter SUBW          = 23'b01000100000000101000000; parameter SRAW       = 23'b01000100000000011100000;
-    parameter LB            = 23'b00000100000010000000000; parameter LH         = 23'b00000100000010000000000;
-    parameter LW            = 23'b00000100000010000000000; parameter LD         = 23'b00000100000010000000000;
-    parameter LBU           = 23'b00000100000010000000000; parameter LHU        = 23'b00000100000010000000000;
-    parameter LWU           = 23'b00000100000010000000000; parameter SB         = 23'b00000001010010000000001;
-    parameter SH            = 23'b00000001010010000000001; parameter SW         = 23'b00000001010010000000001;
-    parameter SD            = 23'b00000001010010000000001; parameter FLW        = 23'b00000010000010000000000;
-    parameter FSW           = 23'b00000001010011000000001; parameter FADD_S     = 23'b00010010100000000000000;
-    parameter FSUB_S        = 23'b00010010100000000000000; parameter FMUL_S     = 23'b00010010100000000000010;
-    parameter FDIV_S        = 23'b00010010100000000000100; parameter FMIN_S     = 23'b00010010100000000000110;
-    parameter FMAX_S        = 23'b00010010100000000000110; parameter FCVT_W_S   = 23'b01100100100000000001100;
-    parameter FCVT_S_W      = 23'b00001010100000100100000; parameter FCVT_L_S   = 23'b01100100100000000001100;
-    parameter FCVT_S_L      = 23'b00001010100000100100000; parameter FSGNJ_S    = 23'b00010010100000000001010;
-    parameter FSGNJN_S      = 23'b00010010100000000001010; parameter FSGNJX_S   = 23'b00010010100000000001010;
-    parameter FEQ_S         = 23'b01100100100000000001000; parameter FLT_S      = 23'b01100100100000000001000;
-    parameter FLE_S         = 23'b01100100100000000001000; parameter FMV_X_W    = 23'b01100100100000001001110;
-    parameter FMV_W_X       = 23'b00001010100000000000000;
+    parameter ADDI          = 24'b001000100000010000000000; parameter SLTI       = 24'b001000100000010010000000;
+    parameter ANDI          = 24'b001000100000010000100000; parameter ORI        = 24'b001000100000010001000000;
+    parameter XORI          = 24'b001000100000010001100000; parameter SLTIU      = 24'b001000100000010010100000;
+    parameter SLLI          = 24'b001000100000010011000000; parameter SRLI       = 24'b001000100000010011100000;
+    parameter SRAI          = 24'b001000100000010011100000; parameter LUI        = 24'b001000100010010100000000;
+    parameter AUIPC         = 24'b010000100010000000000000; parameter ADD        = 24'b001000100100000000000000;
+    parameter SLT           = 24'b001000100100000010000000; parameter SLTU       = 24'b001000100100000010100000;
+    parameter AND           = 24'b001000100100000000100000; parameter OR         = 24'b001000100100000001000000;
+    parameter XOR           = 24'b001000100100000001100000; parameter SLL        = 24'b001000100100000011000000;
+    parameter SRL           = 24'b001000100100000011100000; parameter SUB        = 24'b001000100100000101000000;
+    parameter SRA           = 24'b001000100100000011100000; parameter JAL        = 24'b000100100110100000000000;
+    parameter JALR          = 24'b000100100001010000000000; parameter BEQ_TAKEN  = 24'b000000001000100010000000;
+    parameter BEQ_UNTAKEN   = 24'b000000001000000010000000; parameter BNE_TAKEN  = 24'b000000001000100010000000;
+    parameter BNE_UNTAKEN   = 24'b000000001000000010000000; parameter BLT_TAKEN  = 24'b000000001000100010000000;
+    parameter BLT_UNTAKEN   = 24'b000000001000000010000000; parameter BLTU_TAKEN = 24'b000000001000100010100000;
+    parameter BLTU_UNTAKEN  = 24'b000000001000000010100000; parameter BGE_TAKEN  = 24'b000000001000100010000000;
+    parameter BGE_UNTAKEN   = 24'b000000001000000010000000; parameter BGEU_TAKEN = 24'b000000001000100010100000;
+    parameter BGEU_UNTAKEN  = 24'b000000001000000010100000; parameter ADDIW      = 24'b001000100000010000000000;
+    parameter SLLIW         = 24'b001000100000010011000000; parameter SRLIW      = 24'b001000100000010011100000;
+    parameter SRAIW         = 24'b001000100000010011100000; parameter ADDW       = 24'b001000100000000000000000;
+    parameter SLLW          = 24'b001000100000000011000000; parameter SRLW       = 24'b001000100000000011100000;
+    parameter SUBW          = 24'b001000100000000101000000; parameter SRAW       = 24'b001000100000000011100000;
+    parameter LB            = 24'b000000100000010000000000; parameter LH         = 24'b000000100000010000000000;
+    parameter LW            = 24'b000000100000010000000000; parameter LD         = 24'b000000100000010000000000;
+    parameter LBU           = 24'b000000100000010000000000; parameter LHU        = 24'b000000100000010000000000;
+    parameter LWU           = 24'b000000100000010000000000; parameter SB         = 24'b000000001010010000000001;
+    parameter SH            = 24'b000000001010010000000001; parameter SW         = 24'b000000001010010000000001;
+    parameter SD            = 24'b000000001010010000000001; parameter FLW        = 24'b000000010000010000000000;
+    parameter FSW           = 24'b000000001010011000000001; parameter FADD_S     = 24'b000010010100000000000000;
+    parameter FSUB_S        = 24'b000010010100000000000000; parameter FMUL_S     = 24'b000010010100000000000010;
+    parameter FDIV_S        = 24'b100010010100000000000100; parameter FMIN_S     = 24'b000010010100000000000110;
+    parameter FMAX_S        = 24'b000010010100000000000110; parameter FCVT_W_S   = 24'b001100100100000000001100;
+    parameter FCVT_S_W      = 24'b000001010100000100100000; parameter FCVT_L_S   = 24'b001100100100000000001100;
+    parameter FCVT_S_L      = 24'b000001010100000100100000; parameter FSGNJ_S    = 24'b000010010100000000001010;
+    parameter FSGNJN_S      = 24'b000010010100000000001010; parameter FSGNJX_S   = 24'b000010010100000000001010;
+    parameter FEQ_S         = 24'b001100100100000000001000; parameter FLT_S      = 24'b001100100100000000001000;
+    parameter FLE_S         = 24'b001100100100000000001000; parameter FMV_X_W    = 24'b001100100100000001001110;
+    parameter FMV_W_X       = 24'b000001010100000000000000;
     
     input   in_prediction;  // Prediction from Branch Prediction Unit
     input   [4:0] in_flag;
     input   [31:0] in_inst;
 
     output  out_flush;      // Flush pipeline signal in case of wrong prediction
-    output reg  [22:0] out_ctrl_signal;
+    output reg  [23:0] out_ctrl_signal;
 
     always @ (*) begin
         case (in_inst[6:0])
@@ -93,7 +93,7 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
                     3'b101: out_ctrl_signal = (in_flag[1] | in_prediction) ? BGE_TAKEN : BGE_UNTAKEN;
                     3'b110: out_ctrl_signal = (in_flag[2] | in_prediction) ? BLTU_TAKEN : BLTU_UNTAKEN;
                     3'b111: out_ctrl_signal = (in_flag[0] | in_prediction) ? BGEU_TAKEN : BGEU_UNTAKEN;
-                    default: out_ctrl_signal = 23'd0;
+                    default: out_ctrl_signal = 24'd0;
                 endcase
             end
             OP_IMM_32: begin
@@ -101,7 +101,7 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
                     3'b000: out_ctrl_signal = ADDIW;
                     3'b001: out_ctrl_signal = SLLIW;
                     3'b101: out_ctrl_signal = (in_inst[30]) ? SRAIW : SRLIW;
-                    default: out_ctrl_signal = 23'd0;
+                    default: out_ctrl_signal = 24'd0;
                 endcase
             end
             OP_32: begin
@@ -109,7 +109,7 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
                     3'b000: out_ctrl_signal = (in_inst[30]) ? SUBW : ADDW;
                     3'b001: out_ctrl_signal = SLLW;
                     3'b101: out_ctrl_signal = (in_inst[30]) ? SRAW : SRLW;
-                    default: out_ctrl_signal = 23'd0;
+                    default: out_ctrl_signal = 24'd0;
                 endcase
             end
             LOAD: begin
@@ -121,7 +121,7 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
                     3'b100: out_ctrl_signal = LBU;
                     3'b101: out_ctrl_signal = LHU;
                     3'b110: out_ctrl_signal = LWU;
-                    3'b111: out_ctrl_signal = 23'd0;
+                    3'b111: out_ctrl_signal = 24'd0;
                 endcase
             end
             STORE: begin
@@ -130,7 +130,7 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
                     3'b001: out_ctrl_signal = SH;
                     3'b010: out_ctrl_signal = SW;
                     3'b011: out_ctrl_signal = SD;
-                    default: out_ctrl_signal = 23'd0;
+                    default: out_ctrl_signal = 24'd0;
                 endcase
             end
             LOAD_FP: begin out_ctrl_signal = FLW; end
@@ -149,7 +149,7 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
                             3'b000: out_ctrl_signal = FSGNJ_S;
                             3'b001: out_ctrl_signal = FSGNJN_S;
                             3'b010: out_ctrl_signal = FSGNJX_S;
-                            default: out_ctrl_signal = 23'd0;
+                            default: out_ctrl_signal = 24'd0;
                         endcase
                     end
                     7'b1010000: begin
@@ -157,15 +157,15 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
                             3'b000: out_ctrl_signal = FLE_S;
                             3'b001: out_ctrl_signal = FLT_S;
                             3'b010: out_ctrl_signal = FEQ_S;
-                            default: out_ctrl_signal = 23'd0;
+                            default: out_ctrl_signal = 24'd0;
                         endcase
                     end
                     7'b1110000: out_ctrl_signal = FMV_X_W;
                     7'b1111000: out_ctrl_signal = FMV_W_X;
-                    default: out_ctrl_signal = 23'd0;
+                    default: out_ctrl_signal = 24'd0;
                 endcase
             end
-            default: out_ctrl_signal = 23'd0;
+            default: out_ctrl_signal = 24'd0;
         endcase
     end
 endmodule

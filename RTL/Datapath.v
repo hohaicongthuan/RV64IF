@@ -1,6 +1,6 @@
 module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, out_addr, out_wr_data, out_flag, out_DM_write_en, out_prediction);
     input   Clk, Rst_N;
-    input   [22:0] in_ctrl_signal;
+    input   [23:0] in_ctrl_signal;
     input   [31:0] in_inst;
     input   [63:0] in_DM_data;
 
@@ -15,8 +15,8 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
     parameter   mem_wb_dat_buff_size = 325;
 
     // Control buffers
-    parameter   if_id_ctrl_buff_size = 25;
-    parameter   id_ex_ctrl_buff_size = 24;
+    parameter   if_id_ctrl_buff_size = 26;
+    parameter   id_ex_ctrl_buff_size = 25;
     parameter   ex_mem_ctrl_buff_size = 8;
     parameter   mem_wb_ctrl_buff_size = 7;
 
@@ -24,8 +24,8 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
     // INTERNAL WIRES //
     ////////////////////
     wire    stall_signal;
-    wire    [24:0] if_id_ctrl_buff_in, if_id_ctrl_buff_out;
-    wire    [23:0] id_ex_ctrl_buff_in, id_ex_ctrl_buff_out;
+    wire    [25:0] if_id_ctrl_buff_in, if_id_ctrl_buff_out;
+    wire    [24:0] id_ex_ctrl_buff_in, id_ex_ctrl_buff_out;
     wire    [ 7:0] ex_mem_ctrl_buff_in, ex_mem_ctrl_buff_out;
     wire    [ 6:0] mem_wb_ctrl_buff_in, mem_wb_ctrl_buff_out;
 
@@ -133,7 +133,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .Rst_N(Rst_N),
         .En(!stall_signal)
     );
-    assign if_id_ctrl_buff_in = {in_ctrl_signal[22:16], in_ctrl_signal[10:0], in_inst[21:20], in_inst[30], in_inst[27], in_inst[14:12]};
+    assign if_id_ctrl_buff_in = {in_ctrl_signal[23:16], in_ctrl_signal[10:0], in_inst[21:20], in_inst[30], in_inst[27], in_inst[14:12]};
 
     // ID - EX Control Buffer
     REG #(.DATA_WIDTH(id_ex_ctrl_buff_size)) id_ex_ctrl_buff(
@@ -143,7 +143,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .Rst_N(Rst_N),
         .En(!stall_signal)
     );
-    assign id_ex_ctrl_buff_in = {if_id_ctrl_buff_out[24:18], if_id_ctrl_buff_out[16:0]};
+    assign id_ex_ctrl_buff_in = {if_id_ctrl_buff_out[25:18], if_id_ctrl_buff_out[16:0]};
 
     // EX - MEM Control Buffer
     REG #(.DATA_WIDTH(ex_mem_ctrl_buff_size)) ex_mem_ctrl_buff(
@@ -211,7 +211,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .in_ctrl_minmax_sgnj_cmp(id_ex_ctrl_buff_out[2:0]),
         .in_Clk(Clk),
         .in_Rst_N(Rst_N),
-        .in_start(),
+        .in_start(id_ex_ctrl_buff_out[24]),
         .out_stall(stall_signal)
     );
 
