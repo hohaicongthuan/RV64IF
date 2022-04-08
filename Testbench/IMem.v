@@ -7,7 +7,7 @@ module IMem(out_inst, in_inst_addr, done_load_inst);
 
     integer Inst_File, i;
 
-    reg [7:0] Inst_Mem [1048576:0]; // 2^20
+    reg [7:0] Inst_Mem [1048576:0]; // 2^20 = 1 MB
     reg [31:0] Inst;
 
     initial begin

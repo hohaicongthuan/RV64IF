@@ -1,0 +1,46 @@
+42f6f337          	lui	t1,0x42f6f
+414573b7          	lui	t2,0x41457
+3c23de37          	lui	t3,0x3c23d
+41201eb7          	lui	t4,0x41201
+00000013          	nop
+00000013          	nop
+00000013          	nop
+00000013          	nop
+00000013          	nop
+9793031b          	addiw	t1,t1,-1671
+0a43839b          	addiw	t2,t2,164
+70ae0e1b          	addiw	t3,t3,1802
+297e8e9b          	addiw	t4,t4,663
+00000013          	nop
+00000013          	nop
+00000013          	nop
+00000013          	nop
+00000013          	nop
+f00300d3          	fmv.w.x	ft1,t1
+f0038153          	fmv.w.x	ft2,t2
+f00e8253          	fmv.w.x	ft4,t4
+f00e0353          	fmv.w.x	ft6,t3
+00000013          	nop
+00000013          	nop
+00000013          	nop
+00000013          	nop
+00000013          	nop
+1820f1d3          	fdiv.s	ft3,ft1,ft2
+00000013          	nop
+00000013          	nop
+00000013          	nop
+00000013          	nop
+00000013          	nop
+0841f2d3          	fsub.s	ft5,ft3,ft4
+00000013          	nop
+00000013          	nop
+00000013          	nop
+00000013          	nop
+00000013          	nop
+a06282d3          	fle.s	t0,ft5,ft6
+00000013          	nop
+00000013          	nop
+00000013          	nop
+00000013          	nop
+00000013          	nop
+00513023          	sd	t0,0(sp)

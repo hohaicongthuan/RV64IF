@@ -11,7 +11,7 @@ module DMem(in_data, in_addr, in_wr_en, in_exe_finished, out_data);
     
     output reg  [DATA_WIDTH - 1:0] out_data;
 
-    reg     [7:0] Mem [1048576:0]; // 2^20
+    reg     [7:0] Mem [1048576:0]; // 2^20 = 1 MB
 
     initial begin
         file = $fopen("DMem_Content.txt", "w");
