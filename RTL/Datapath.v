@@ -219,28 +219,30 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
     // INTEGER REGISTER FILE //
     ///////////////////////////
     RegisterFile RegisterFile_Inst0 (
-        .data_in(int_RF_write_data),
-        .data_outA(int_RF_out_A),
-        .data_outB(int_RF_out_B),
-        .addr_A(if_id_dat_buff_out[83:79]),
-        .addr_B(if_id_dat_buff_out[88:84]),
-        .writeAddr(mem_wb_ctrl_buff_out[4:0]),
-        .write_En(mem_wb_ctrl_buff_out[1]),
-        .Clk(Clk)
+        .in_data(int_RF_write_data),
+        .out_data_A(int_RF_out_A),
+        .out_data_B(int_RF_out_B),
+        .in_addr_A(if_id_dat_buff_out[83:79]),
+        .in_addr_B(if_id_dat_buff_out[88:84]),
+        .in_writeAddr(mem_wb_ctrl_buff_out[4:0]),
+        .in_write_En(mem_wb_ctrl_buff_out[1]),
+        .in_Clk(Clk),
+        .in_Rst_N(Rst_N)
     );
 
     //////////////////////////////////
     // FLOATING-POINT REGISTER FILE //
     //////////////////////////////////
     FP_RegisterFile FP_RegisterFile_Inst0(
-        .data_in(fp_RF_write_data[31:0]),
-        .data_outA(fp_RF_out_A),
-        .data_outB(fp_RF_out_B),
-        .addr_A(if_id_dat_buff_out[83:79]),
-        .addr_B(if_id_dat_buff_out[88:84]),
-        .writeAddr(mem_wb_ctrl_buff_out[4:0]),
-        .write_En(mem_wb_ctrl_buff_out[0]),
-        .Clk(Clk)
+        .in_data(fp_RF_write_data[31:0]),
+        .out_data_A(fp_RF_out_A),
+        .out_data_B(fp_RF_out_B),
+        .in_addr_A(if_id_dat_buff_out[83:79]),
+        .in_addr_B(if_id_dat_buff_out[88:84]),
+        .in_writeAddr(mem_wb_ctrl_buff_out[4:0]),
+        .in_write_En(mem_wb_ctrl_buff_out[0]),
+        .in_Clk(Clk),
+        .in_Rst_N(Rst_N)
     );
 
     ////////////////////////////
