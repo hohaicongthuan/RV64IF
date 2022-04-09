@@ -8,7 +8,7 @@ module Testbench();
     integer i;
 
     wire    DM_wr_en, done_load_inst;
-    reg     Clk, Rst_N, in_exe_finished;
+    reg     Clk, Rst_N;
     wire    [31:0] Inst;
     wire    [DATA_WIDTH - 1:0] Inst_Addr, Addr, Wr_Data, DM_Data;
 
@@ -18,7 +18,6 @@ module Testbench();
     end
 
     initial begin
-        in_exe_finished = 1'b0;
         Rst_N = 1'b0;
         #waittime;
         
@@ -30,12 +29,11 @@ module Testbench();
         #waittime;
 
         i = 0;
-        while (i < 1000) begin
+        while (i < 100) begin
             #waittime;
             i = i + 1;
         end
 
-        in_exe_finished = 1'b1;
         #waittime;
         $finish;
     end
@@ -61,7 +59,6 @@ module Testbench();
         .in_data(Wr_Data),
         .in_addr(Addr),
         .in_wr_en(DM_wr_en),
-        .out_data(DM_Data),
-        .in_exe_finished(in_exe_finished)
+        .out_data(DM_Data)
     );
 endmodule
