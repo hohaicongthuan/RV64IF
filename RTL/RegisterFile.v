@@ -18,11 +18,7 @@ module RegisterFile(in_data, out_data_A, out_data_B, in_addr_A, in_addr_B, in_wr
                 registerFile[i] <= 0;
             end
         end else begin
-            if (in_writeAddr == 0) begin
-                registerFile[in_writeAddr] <= 0;
-            end else begin
-                registerFile[in_writeAddr] <= (in_write_En) ? in_data : registerFile[in_writeAddr];
-            end
+            registerFile[in_writeAddr] <= (in_write_En) ? in_data : registerFile[in_writeAddr];
         end
     end
 

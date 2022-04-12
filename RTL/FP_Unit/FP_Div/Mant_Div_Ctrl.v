@@ -47,5 +47,5 @@ module Mant_Div_Ctrl(in_Clk, in_start, in_Rst_N, out_load, out_shift_en, out_sta
     // Output logics
     assign out_load     = (State_Reg == 5'd1) ? 1'b1 : 1'b0;
     assign out_shift_en = (State_Reg == 5'd0 | State_Reg == 5'd25) ? 1'b0 : 1'b1;
-    assign out_stall    = (State_Reg == 5'd0 | State_Reg == 5'd25) ? 1'b0 : 1'b1;
+    assign out_stall    = (State_Reg < 5'd25 & in_start) ? 1'b1 : 1'b0;
 endmodule
