@@ -46,7 +46,8 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
     parameter FSGNJN_S      = 24'b000010010100000000001010; parameter FSGNJX_S   = 24'b000010010100000000001010;
     parameter FEQ_S         = 24'b001100100100000000001000; parameter FLT_S      = 24'b001100100100000000001000;
     parameter FLE_S         = 24'b001100100100000000001000; parameter FMV_X_W    = 24'b001100100100000001001110;
-    parameter FMV_W_X       = 24'b000001010100000000000000;
+    parameter FMV_W_X       = 24'b000001010100000000000000; parameter FSQRT_S    = 24'b000010010100000000010000;
+    parameter FCLASS_S      = 24'b001000100100000000010010;
     
     input   in_prediction;  // Prediction from Branch Prediction Unit
     input   [4:0] in_flag;
@@ -142,6 +143,7 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
                     7'b0001000: out_ctrl_signal = FMUL_S;
                     7'b0001100: out_ctrl_signal = FDIV_S;
                     7'b0010100: out_ctrl_signal = (in_inst[12]) ? FMAX_S : FMIN_S;
+                    7'b0101100: out_ctrl_signal = FSQRT_S;
                     7'b1100000: out_ctrl_signal = (in_inst[21]) ? FCVT_L_S : FCVT_W_S;
                     7'b1101000: out_ctrl_signal = (in_inst[21]) ? FCVT_S_L : FCVT_S_W;
                     7'b0010000: begin
@@ -160,7 +162,7 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
                             default: out_ctrl_signal = 24'd0;
                         endcase
                     end
-                    7'b1110000: out_ctrl_signal = FMV_X_W;
+                    7'b1110000: out_ctrl_signal = (in_inst[12]) ? FCLASS_S : FMV_X_W;
                     7'b1111000: out_ctrl_signal = FMV_W_X;
                     default: out_ctrl_signal = 24'd0;
                 endcase
