@@ -12,8 +12,8 @@ module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_addsub_ctrl, in_c
 
     // Internal wires
     wire    flag_NX, flag_NV, flag_OF, flag_UF;
-    wire    [31:0] FP_AddSub_Out, FP_Mul_Out, FP_Div_Out, FP_MinMax_Out, FP_SGNJ_Out;
-    wire    [63:0] FP_Int_Convert_Out, FP_Cmp_Out, wire_1, wire_2, wire_3, wire_4, wire_5, wire_6, wire_7;
+    wire    [31:0] FP_AddSub_Out, FP_Mul_Out, FP_Div_Out, FP_MinMax_Out, FP_SGNJ_Out, FP_Class_Out;
+    wire    [63:0] FP_Int_Convert_Out, FP_Cmp_Out, wire_1, wire_2, wire_3, wire_4, wire_5, wire_6, wire_7, wire_8;
 
     FP_AddSub FP_AddSub_Inst0 (
         .in_numA(in_rs1),
@@ -60,6 +60,10 @@ module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_addsub_ctrl, in_c
         .out_data(FP_Int_Convert_Out),
         .out_flg_NV()
     );
+    FP_Class FP_Class_Inst0(
+        .in_data(in_rs1),
+        .out_data(FP_Class_Out)
+    );
 
     assign out_data = (in_FPU_Op == 4'b0000) ? {32'd0, FP_AddSub_Out}   : wire_1;
     assign wire_1   = (in_FPU_Op == 4'b0001) ? {32'd0, FP_Mul_Out}      : wire_2;
@@ -68,5 +72,6 @@ module FP_Unit(in_rs1, in_rs2, out_data, in_FPU_Op, in_fmt, in_addsub_ctrl, in_c
     assign wire_4   = (in_FPU_Op == 4'b0100) ? FP_Cmp_Out               : wire_5;
     assign wire_5   = (in_FPU_Op == 4'b0101) ? {32'd0, FP_SGNJ_Out}     : wire_6;
     assign wire_6   = (in_FPU_Op == 4'b0110) ? FP_Int_Convert_Out       : wire_7;
-    assign wire_7   = (in_FPU_Op == 4'b0111) ? {32'd0, in_rs1}          : 64'd0;
+    assign wire_7   = (in_FPU_Op == 4'b0111) ? {32'd0, in_rs1}          : wire_8;
+    assign wire_8   = (in_FPU_Op == 4'b1001) ? {32'd0, FP_Class_Out}    : 64'd0;
 endmodule
