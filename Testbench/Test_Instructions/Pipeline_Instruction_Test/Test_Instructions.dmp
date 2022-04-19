@@ -1,0 +1,283 @@
+
+Test_Instructions.o:     file format elf64-littleriscv
+
+
+Disassembly of section .text:
+
+0000000000000000 <main>:
+   0:	00000013          	nop
+   4:	00000093          	li	ra,0
+   8:	00000293          	li	t0,0
+   c:	0540006f          	j	60 <ADDI_Inst>
+  10:	06c0006f          	j	7c <SLTI_Inst>
+  14:	0840006f          	j	98 <ANDI_Inst>
+  18:	09c0006f          	j	b4 <ORI_Inst>
+  1c:	0b40006f          	j	d0 <XORI_Inst>
+  20:	0cc0006f          	j	ec <SLTIU_Inst>
+  24:	0e40006f          	j	108 <SLLI_Inst>
+  28:	0fc0006f          	j	124 <SRLI_Inst>
+  2c:	1140006f          	j	140 <SRAI_Inst>
+  30:	12c0006f          	j	15c <ADD_Inst>
+  34:	1480006f          	j	17c <SLT_Inst>
+  38:	1640006f          	j	19c <SLTU_Inst>
+  3c:	1800006f          	j	1bc <AND_Inst>
+  40:	19c0006f          	j	1dc <OR_Inst>
+  44:	1b80006f          	j	1fc <XOR_Inst>
+  48:	1d40006f          	j	21c <SLL_Inst>
+  4c:	1f00006f          	j	23c <SRL_Inst>
+  50:	20c0006f          	j	25c <SRA_Inst>
+  54:	2280006f          	j	27c <FMIN_S_Inst>
+  58:	25c0006f          	j	2b4 <FMAX_S_Inst>
+  5c:	2900006f          	j	2ec <FP_Test>
+
+0000000000000060 <ADDI_Inst>:
+  60:	00100313          	li	t1,1
+  64:	00000013          	nop
+  68:	00000013          	nop
+  6c:	00000013          	nop
+  70:	00000013          	nop
+  74:	00230393          	addi	t2,t1,2
+  78:	f89ff06f          	j	0 <main>
+
+000000000000007c <SLTI_Inst>:
+  7c:	00100313          	li	t1,1
+  80:	00000013          	nop
+  84:	00000013          	nop
+  88:	00000013          	nop
+  8c:	00000013          	nop
+  90:	00232393          	slti	t2,t1,2
+  94:	f6dff06f          	j	0 <main>
+
+0000000000000098 <ANDI_Inst>:
+  98:	07b00313          	li	t1,123
+  9c:	00000013          	nop
+  a0:	00000013          	nop
+  a4:	00000013          	nop
+  a8:	00000013          	nop
+  ac:	1c837393          	andi	t2,t1,456
+  b0:	f51ff06f          	j	0 <main>
+
+00000000000000b4 <ORI_Inst>:
+  b4:	07b00313          	li	t1,123
+  b8:	00000013          	nop
+  bc:	00000013          	nop
+  c0:	00000013          	nop
+  c4:	00000013          	nop
+  c8:	1c836393          	ori	t2,t1,456
+  cc:	f35ff06f          	j	0 <main>
+
+00000000000000d0 <XORI_Inst>:
+  d0:	07b00313          	li	t1,123
+  d4:	00000013          	nop
+  d8:	00000013          	nop
+  dc:	00000013          	nop
+  e0:	00000013          	nop
+  e4:	1c834393          	xori	t2,t1,456
+  e8:	f19ff06f          	j	0 <main>
+
+00000000000000ec <SLTIU_Inst>:
+  ec:	00100313          	li	t1,1
+  f0:	00000013          	nop
+  f4:	00000013          	nop
+  f8:	00000013          	nop
+  fc:	00000013          	nop
+ 100:	00233393          	sltiu	t2,t1,2
+ 104:	efdff06f          	j	0 <main>
+
+0000000000000108 <SLLI_Inst>:
+ 108:	00100313          	li	t1,1
+ 10c:	00000013          	nop
+ 110:	00000013          	nop
+ 114:	00000013          	nop
+ 118:	00000013          	nop
+ 11c:	00231393          	slli	t2,t1,0x2
+ 120:	ee1ff06f          	j	0 <main>
+
+0000000000000124 <SRLI_Inst>:
+ 124:	00800313          	li	t1,8
+ 128:	00000013          	nop
+ 12c:	00000013          	nop
+ 130:	00000013          	nop
+ 134:	00000013          	nop
+ 138:	00335393          	srli	t2,t1,0x3
+ 13c:	ec5ff06f          	j	0 <main>
+
+0000000000000140 <SRAI_Inst>:
+ 140:	ff800313          	li	t1,-8
+ 144:	00000013          	nop
+ 148:	00000013          	nop
+ 14c:	00000013          	nop
+ 150:	00000013          	nop
+ 154:	40335393          	srai	t2,t1,0x3
+ 158:	ea9ff06f          	j	0 <main>
+
+000000000000015c <ADD_Inst>:
+ 15c:	00100313          	li	t1,1
+ 160:	00100393          	li	t2,1
+ 164:	00000013          	nop
+ 168:	00000013          	nop
+ 16c:	00000013          	nop
+ 170:	00000013          	nop
+ 174:	00730e33          	add	t3,t1,t2
+ 178:	e89ff06f          	j	0 <main>
+
+000000000000017c <SLT_Inst>:
+ 17c:	00100313          	li	t1,1
+ 180:	00200393          	li	t2,2
+ 184:	00000013          	nop
+ 188:	00000013          	nop
+ 18c:	00000013          	nop
+ 190:	00000013          	nop
+ 194:	00732e33          	slt	t3,t1,t2
+ 198:	e69ff06f          	j	0 <main>
+
+000000000000019c <SLTU_Inst>:
+ 19c:	00100313          	li	t1,1
+ 1a0:	00200393          	li	t2,2
+ 1a4:	00000013          	nop
+ 1a8:	00000013          	nop
+ 1ac:	00000013          	nop
+ 1b0:	00000013          	nop
+ 1b4:	00733e33          	sltu	t3,t1,t2
+ 1b8:	e49ff06f          	j	0 <main>
+
+00000000000001bc <AND_Inst>:
+ 1bc:	07b00313          	li	t1,123
+ 1c0:	1c800393          	li	t2,456
+ 1c4:	00000013          	nop
+ 1c8:	00000013          	nop
+ 1cc:	00000013          	nop
+ 1d0:	00000013          	nop
+ 1d4:	00737e33          	and	t3,t1,t2
+ 1d8:	e29ff06f          	j	0 <main>
+
+00000000000001dc <OR_Inst>:
+ 1dc:	07b00313          	li	t1,123
+ 1e0:	1c800393          	li	t2,456
+ 1e4:	00000013          	nop
+ 1e8:	00000013          	nop
+ 1ec:	00000013          	nop
+ 1f0:	00000013          	nop
+ 1f4:	00736e33          	or	t3,t1,t2
+ 1f8:	e09ff06f          	j	0 <main>
+
+00000000000001fc <XOR_Inst>:
+ 1fc:	07b00313          	li	t1,123
+ 200:	1c800393          	li	t2,456
+ 204:	00000013          	nop
+ 208:	00000013          	nop
+ 20c:	00000013          	nop
+ 210:	00000013          	nop
+ 214:	00734e33          	xor	t3,t1,t2
+ 218:	de9ff06f          	j	0 <main>
+
+000000000000021c <SLL_Inst>:
+ 21c:	00100313          	li	t1,1
+ 220:	00200393          	li	t2,2
+ 224:	00000013          	nop
+ 228:	00000013          	nop
+ 22c:	00000013          	nop
+ 230:	00000013          	nop
+ 234:	00731e33          	sll	t3,t1,t2
+ 238:	dc9ff06f          	j	0 <main>
+
+000000000000023c <SRL_Inst>:
+ 23c:	00800313          	li	t1,8
+ 240:	00300393          	li	t2,3
+ 244:	00000013          	nop
+ 248:	00000013          	nop
+ 24c:	00000013          	nop
+ 250:	00000013          	nop
+ 254:	00735e33          	srl	t3,t1,t2
+ 258:	da9ff06f          	j	0 <main>
+
+000000000000025c <SRA_Inst>:
+ 25c:	ff800313          	li	t1,-8
+ 260:	00300393          	li	t2,3
+ 264:	00000013          	nop
+ 268:	00000013          	nop
+ 26c:	00000013          	nop
+ 270:	00000013          	nop
+ 274:	00731e33          	sll	t3,t1,t2
+ 278:	d89ff06f          	j	0 <main>
+
+000000000000027c <FMIN_S_Inst>:
+ 27c:	3f800337          	lui	t1,0x3f800
+ 280:	400003b7          	lui	t2,0x40000
+ 284:	00000013          	nop
+ 288:	00000013          	nop
+ 28c:	00000013          	nop
+ 290:	00000013          	nop
+ 294:	f00300d3          	fmv.w.x	ft1,t1
+ 298:	f0038153          	fmv.w.x	ft2,t2
+ 29c:	00000013          	nop
+ 2a0:	00000013          	nop
+ 2a4:	00000013          	nop
+ 2a8:	00000013          	nop
+ 2ac:	282081d3          	fmin.s	ft3,ft1,ft2
+ 2b0:	d51ff06f          	j	0 <main>
+
+00000000000002b4 <FMAX_S_Inst>:
+ 2b4:	3f800337          	lui	t1,0x3f800
+ 2b8:	400003b7          	lui	t2,0x40000
+ 2bc:	00000013          	nop
+ 2c0:	00000013          	nop
+ 2c4:	00000013          	nop
+ 2c8:	00000013          	nop
+ 2cc:	f00300d3          	fmv.w.x	ft1,t1
+ 2d0:	f0038153          	fmv.w.x	ft2,t2
+ 2d4:	00000013          	nop
+ 2d8:	00000013          	nop
+ 2dc:	00000013          	nop
+ 2e0:	00000013          	nop
+ 2e4:	282091d3          	fmax.s	ft3,ft1,ft2
+ 2e8:	d19ff06f          	j	0 <main>
+
+00000000000002ec <FP_Test>:
+ 2ec:	0002a303          	lw	t1,0(t0)
+ 2f0:	0042a383          	lw	t2,4(t0)
+ 2f4:	0082ae03          	lw	t3,8(t0)
+ 2f8:	00c2ae83          	lw	t4,12(t0)
+ 2fc:	0102af03          	lw	t5,16(t0)
+ 300:	0142af83          	lw	t6,20(t0)
+ 304:	f00300d3          	fmv.w.x	ft1,t1
+ 308:	f0038153          	fmv.w.x	ft2,t2
+ 30c:	00000013          	nop
+ 310:	00000013          	nop
+ 314:	00000013          	nop
+ 318:	0020f1d3          	fadd.s	ft3,ft1,ft2
+ 31c:	0820f253          	fsub.s	ft4,ft1,ft2
+ 320:	1020f2d3          	fmul.s	ft5,ft1,ft2
+ 324:	1820f353          	fdiv.s	ft6,ft1,ft2
+ 328:	00000013          	nop
+ 32c:	e00184d3          	fmv.x.w	s1,ft3
+ 330:	e0020953          	fmv.x.w	s2,ft4
+ 334:	e00289d3          	fmv.x.w	s3,ft5
+ 338:	e0030a53          	fmv.x.w	s4,ft6
+ 33c:	00000013          	nop
+ 340:	41c48433          	sub	s0,s1,t3
+ 344:	00000013          	nop
+ 348:	00000013          	nop
+ 34c:	00000013          	nop
+ 350:	00000013          	nop
+ 354:	00143413          	seqz	s0,s0
+ 358:	41d90433          	sub	s0,s2,t4
+ 35c:	00000013          	nop
+ 360:	00000013          	nop
+ 364:	00000013          	nop
+ 368:	00000013          	nop
+ 36c:	00143413          	seqz	s0,s0
+ 370:	41e98433          	sub	s0,s3,t5
+ 374:	00000013          	nop
+ 378:	00000013          	nop
+ 37c:	00000013          	nop
+ 380:	00000013          	nop
+ 384:	00143413          	seqz	s0,s0
+ 388:	41fa0433          	sub	s0,s4,t6
+ 38c:	00000013          	nop
+ 390:	00000013          	nop
+ 394:	00000013          	nop
+ 398:	00000013          	nop
+ 39c:	00143413          	seqz	s0,s0
+ 3a0:	01828293          	addi	t0,t0,24
+ 3a4:	f49ff06f          	j	2ec <FP_Test>
