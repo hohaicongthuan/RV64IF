@@ -30,7 +30,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
     wire    [ 6:0] mem_wb_ctrl_buff_in, mem_wb_ctrl_buff_out;
 
     wire    [31:0] fp_RF_out_A, fp_RF_out_B, fp_wr_dat_wire_1;
-    wire    [63:0] int_RF_out_A, int_RF_out_B, FPU_Out, ImmGen_Out, PC_Src, rs2_Src, PC_Src_wire_1, int_RF_write_data, int_wr_dat_wire_1, int_wr_dat_wire_2, int_wr_dat_wire_3, PC_Add_Four, PC_Add_Imm, PC_From_ALU, PC_data, ALU_Out, DM_data_src, fp_RF_write_data;
+    wire    [63:0] int_RF_out_A, int_RF_out_B, FPU_Out, ImmGen_Out, PC_Src, rs2_Src, PC_Src_wire_1, int_RF_write_data, int_wr_dat_wire_1, int_wr_dat_wire_2, int_wr_dat_wire_3, PC_Add_Four, PC_Add_Imm, PC_From_ALU, PC_data, ALU_Out, DM_data_src, fp_RF_write_data, RAS_Out;
     wire    [223:0] if_id_dat_buff_in, if_id_dat_buff_out;
     wire    [324:0] id_ex_dat_buff_in, id_ex_dat_buff_out, ex_mem_dat_buff_in, ex_mem_dat_buff_out, mem_wb_dat_buff_in, mem_wb_dat_buff_out;
 
@@ -48,7 +48,7 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .in_data_0(PC_Add_Four),
         .in_data_1(PC_Add_Imm),
         .in_data_2(PC_From_ALU),
-        .in_data_3(64'd0),
+        .in_data_3(RAS_Out),
         .out_data(PC_Src),
         .in_sel(in_ctrl_signal[12:11])
     );
@@ -254,5 +254,18 @@ module Datapath(in_ctrl_signal, in_inst, in_DM_data, Rst_N, Clk, out_inst_addr, 
         .in_Clk(Clk),
         .in_Rst_N(Rst_N),
         .out_prediction(out_prediction)
+    );
+
+    //////////////////////////
+    // RETURN ADDRESS STACK //
+    //////////////////////////
+    RAS RAS_Inst0(
+        .in_data(PC_Add_Four),
+        .out_data(RAS_Out),
+        .in_Clk(Clk),
+        .in_Rst_N(Rst_N),
+        .in_rd(in_inst[11:7]),
+        .in_rs1(in_inst[19:15]),
+        .in_opcode(in_inst[6:0])
     );
 endmodule

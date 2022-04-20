@@ -48,6 +48,8 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
     parameter FLE_S         = 24'b001100100100000000001000; parameter FMV_X_W    = 24'b001100100100000001001110;
     parameter FMV_W_X       = 24'b000001010100000000000000; parameter FSQRT_S    = 24'b000010010100000000010000;
     parameter FCLASS_S      = 24'b001000100100000000010010;
+
+    parameter RET           = 24'b000100100001110000000000; // Control signals for ret (jalr ra) instruction (jump to return address)
     
     input   in_prediction;  // Prediction from Branch Prediction Unit
     input   [4:0] in_flag;
@@ -85,7 +87,7 @@ module ControlUnit(in_inst, in_flag, in_prediction, out_ctrl_signal, out_flush);
             LUI_Op: out_ctrl_signal = LUI;
             AUIPC_Op: out_ctrl_signal = AUIPC;
             JAL_Op: out_ctrl_signal = JAL;
-            JALR_Op: out_ctrl_signal = JALR;
+            JALR_Op: out_ctrl_signal = (in_inst[19:15] == 5'd1 | in_inst[19:15] == 5'd5) ? RET : JALR;
             BRANCH: begin
                 case (in_inst[14:12])
                     3'b000: out_ctrl_signal = (in_flag[4] | in_prediction) ? BEQ_TAKEN : BEQ_UNTAKEN;
