@@ -29,7 +29,7 @@ module Testbench();
         #waittime;
 
         i = 0;
-        while (i < 100) begin
+        while (i < 1000) begin
             #waittime;
             i = i + 1;
         end

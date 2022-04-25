@@ -2,27 +2,27 @@ main:
     nop
     addi    ra, x0, 0
     addi    t0, x0, 0
-    j       ADDI_Inst
-    j       SLTI_Inst
-    j       ANDI_Inst
-    j       ORI_Inst
-    j       XORI_Inst
-    j       SLTIU_Inst
-    j       SLLI_Inst
-    j       SRLI_Inst
-    j       SRAI_Inst
-    j       ADD_Inst
-    j       SLT_Inst
-    j       SLTU_Inst
-    j       AND_Inst
-    j       OR_Inst
-    j       XOR_Inst
-    j       SLL_Inst
-    j       SRL_Inst
-    j       SRA_Inst
-    j       FMIN_S_Inst
-    j       FMAX_S_Inst
-    j       FP_Test
+    jal     ADDI_Inst
+    jal     SLTI_Inst
+    jal     ANDI_Inst
+    jal     ORI_Inst
+    jal     XORI_Inst
+    jal     SLTIU_Inst
+    jal     SLLI_Inst
+    jal     SRLI_Inst
+    jal     SRAI_Inst
+    jal     ADD_Inst
+    jal     SLT_Inst
+    jal     SLTU_Inst
+    jal     AND_Inst
+    jal     OR_Inst
+    jal     XOR_Inst
+    jal     SLL_Inst
+    jal     SRL_Inst
+    jal     SRA_Inst
+    jal     FMIN_S_Inst
+    jal     FMAX_S_Inst
+    jal     FP_Test
 
 ADDI_Inst:
     addi    t1, x0, 1
@@ -31,7 +31,7 @@ ADDI_Inst:
     nop
     nop
     addi    t2, t1, 2
-    j       ra
+    ret
     
 SLTI_Inst:
     addi    t1, x0, 1
@@ -40,7 +40,7 @@ SLTI_Inst:
     nop
     nop
     slti    t2, t1, 2   # 1 < 2 -> 1
-    j       ra
+    ret
 
 ANDI_Inst:
     addi    t1, x0, 123
@@ -49,7 +49,7 @@ ANDI_Inst:
     nop
     nop
     andi    t2, t1, 456 # 123 AND 456 = 72
-    j       ra
+    ret
 
 ORI_Inst:
     addi    t1, x0, 123
@@ -58,7 +58,7 @@ ORI_Inst:
     nop
     nop
     ori     t2, t1, 456 # 123 OR 456 = 507
-    j       ra
+    ret
 
 XORI_Inst:
     addi    t1, x0, 123
@@ -67,7 +67,7 @@ XORI_Inst:
     nop
     nop
     xori    t2, t1, 456 # 123 XOR 456 = 435
-    j       ra
+    ret
 
 SLTIU_Inst:
     addi    t1, x0, 1
@@ -76,7 +76,7 @@ SLTIU_Inst:
     nop
     nop
     sltiu    t2, t1, 2   # 1 < 2 -> 1
-    j       ra
+    ret
 
 SLLI_Inst:
     addi    t1, x0, 1
@@ -85,7 +85,7 @@ SLLI_Inst:
     nop
     nop
     slli    t2, t1, 2   # 1 << 2 = 4
-    j       ra
+    ret
 
 SRLI_Inst:
     addi    t1, x0, 8
@@ -94,7 +94,7 @@ SRLI_Inst:
     nop
     nop
     srli    t2, t1, 3   # 8 >> 3 = 1
-    j       ra
+    ret
 
 SRAI_Inst:
     addi    t1, x0, -8
@@ -103,7 +103,7 @@ SRAI_Inst:
     nop
     nop
     srai    t2, t1, 3   # -8 >>> 3 = -1
-    j       ra
+    ret
 
 ADD_Inst:
     addi    t1, x0, 1
@@ -113,7 +113,7 @@ ADD_Inst:
     nop
     nop
     add     t3, t1, t2  # 1 + 1 = 2
-    j       ra
+    ret
 
 SLT_Inst:
     addi    t1, x0, 1
@@ -123,7 +123,7 @@ SLT_Inst:
     nop
     nop
     slt     t3, t1, t2  # 1 < 2 -> 1
-    j       ra
+    ret
 
 SLTU_Inst:
     addi    t1, x0, 1
@@ -133,7 +133,7 @@ SLTU_Inst:
     nop
     nop
     sltu    t3, t1, t2  # 1 < 2 -> 1
-    j       ra
+    ret
 
 AND_Inst:
     addi    t1, x0, 123
@@ -143,7 +143,7 @@ AND_Inst:
     nop
     nop
     and     t3, t1, t2  # 123 AND 456 = 72
-    j       ra
+    ret
 
 OR_Inst:
     addi    t1, x0, 123
@@ -153,7 +153,7 @@ OR_Inst:
     nop
     nop
     or      t3, t1, t2  # 123 OR 456 = 507
-    j       ra
+    ret
 
 XOR_Inst:
     addi    t1, x0, 123
@@ -163,7 +163,7 @@ XOR_Inst:
     nop
     nop
     xor     t3, t1, t2  # 123 XOR 456 = 435
-    j       ra
+    ret
 
 SLL_Inst:
     addi    t1, x0, 1
@@ -173,7 +173,7 @@ SLL_Inst:
     nop
     nop
     sll     t3, t1, t2  # 1 << 2 = 4
-    j       ra
+    ret
 
 SRL_Inst:
     addi    t1, x0, 8
@@ -183,7 +183,7 @@ SRL_Inst:
     nop
     nop
     srl     t3, t1, t2  # 8 >> 3 = 1
-    j       ra
+    ret
 
 SRA_Inst:
     addi    t1, x0, -8
@@ -193,7 +193,7 @@ SRA_Inst:
     nop
     nop
     sll     t3, t1, t2  # -8 >>> 3 = -1
-    j       ra
+    ret
 
 FMIN_S_Inst:
     li      t1, 0x3F800000  # number 1 in 32-bit floating-point format
@@ -209,7 +209,7 @@ FMIN_S_Inst:
     nop
     nop
     fmin.s  ft3, ft1, ft2     # min(1, 2) -> 1
-    j       ra
+    ret
 
 FMAX_S_Inst:
     li      t1, 0x3F800000  # number 1 in 32-bit floating-point format
@@ -225,7 +225,7 @@ FMAX_S_Inst:
     nop
     nop
     fmax.s  ft3, ft1, ft2     # max(1, 2) -> 2
-    j       ra
+    ret
 
 FP_Test:
     lw      t1, 0(t0)       # number A

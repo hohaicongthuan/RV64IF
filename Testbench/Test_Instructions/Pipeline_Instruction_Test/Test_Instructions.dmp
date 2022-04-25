@@ -8,27 +8,27 @@ Disassembly of section .text:
    0:	00000013          	nop
    4:	00000093          	li	ra,0
    8:	00000293          	li	t0,0
-   c:	0540006f          	j	60 <ADDI_Inst>
-  10:	06c0006f          	j	7c <SLTI_Inst>
-  14:	0840006f          	j	98 <ANDI_Inst>
-  18:	09c0006f          	j	b4 <ORI_Inst>
-  1c:	0b40006f          	j	d0 <XORI_Inst>
-  20:	0cc0006f          	j	ec <SLTIU_Inst>
-  24:	0e40006f          	j	108 <SLLI_Inst>
-  28:	0fc0006f          	j	124 <SRLI_Inst>
-  2c:	1140006f          	j	140 <SRAI_Inst>
-  30:	12c0006f          	j	15c <ADD_Inst>
-  34:	1480006f          	j	17c <SLT_Inst>
-  38:	1640006f          	j	19c <SLTU_Inst>
-  3c:	1800006f          	j	1bc <AND_Inst>
-  40:	19c0006f          	j	1dc <OR_Inst>
-  44:	1b80006f          	j	1fc <XOR_Inst>
-  48:	1d40006f          	j	21c <SLL_Inst>
-  4c:	1f00006f          	j	23c <SRL_Inst>
-  50:	20c0006f          	j	25c <SRA_Inst>
-  54:	2280006f          	j	27c <FMIN_S_Inst>
-  58:	25c0006f          	j	2b4 <FMAX_S_Inst>
-  5c:	2900006f          	j	2ec <FP_Test>
+   c:	054000ef          	jal	ra,60 <ADDI_Inst>
+  10:	06c000ef          	jal	ra,7c <SLTI_Inst>
+  14:	084000ef          	jal	ra,98 <ANDI_Inst>
+  18:	09c000ef          	jal	ra,b4 <ORI_Inst>
+  1c:	0b4000ef          	jal	ra,d0 <XORI_Inst>
+  20:	0cc000ef          	jal	ra,ec <SLTIU_Inst>
+  24:	0e4000ef          	jal	ra,108 <SLLI_Inst>
+  28:	0fc000ef          	jal	ra,124 <SRLI_Inst>
+  2c:	114000ef          	jal	ra,140 <SRAI_Inst>
+  30:	12c000ef          	jal	ra,15c <ADD_Inst>
+  34:	148000ef          	jal	ra,17c <SLT_Inst>
+  38:	164000ef          	jal	ra,19c <SLTU_Inst>
+  3c:	180000ef          	jal	ra,1bc <AND_Inst>
+  40:	19c000ef          	jal	ra,1dc <OR_Inst>
+  44:	1b8000ef          	jal	ra,1fc <XOR_Inst>
+  48:	1d4000ef          	jal	ra,21c <SLL_Inst>
+  4c:	1f0000ef          	jal	ra,23c <SRL_Inst>
+  50:	20c000ef          	jal	ra,25c <SRA_Inst>
+  54:	228000ef          	jal	ra,27c <FMIN_S_Inst>
+  58:	25c000ef          	jal	ra,2b4 <FMAX_S_Inst>
+  5c:	290000ef          	jal	ra,2ec <FP_Test>
 
 0000000000000060 <ADDI_Inst>:
   60:	00100313          	li	t1,1
@@ -37,7 +37,7 @@ Disassembly of section .text:
   6c:	00000013          	nop
   70:	00000013          	nop
   74:	00230393          	addi	t2,t1,2
-  78:	f89ff06f          	j	0 <main>
+  78:	00008067          	ret
 
 000000000000007c <SLTI_Inst>:
   7c:	00100313          	li	t1,1
@@ -46,7 +46,7 @@ Disassembly of section .text:
   88:	00000013          	nop
   8c:	00000013          	nop
   90:	00232393          	slti	t2,t1,2
-  94:	f6dff06f          	j	0 <main>
+  94:	00008067          	ret
 
 0000000000000098 <ANDI_Inst>:
   98:	07b00313          	li	t1,123
@@ -55,7 +55,7 @@ Disassembly of section .text:
   a4:	00000013          	nop
   a8:	00000013          	nop
   ac:	1c837393          	andi	t2,t1,456
-  b0:	f51ff06f          	j	0 <main>
+  b0:	00008067          	ret
 
 00000000000000b4 <ORI_Inst>:
   b4:	07b00313          	li	t1,123
@@ -64,7 +64,7 @@ Disassembly of section .text:
   c0:	00000013          	nop
   c4:	00000013          	nop
   c8:	1c836393          	ori	t2,t1,456
-  cc:	f35ff06f          	j	0 <main>
+  cc:	00008067          	ret
 
 00000000000000d0 <XORI_Inst>:
   d0:	07b00313          	li	t1,123
@@ -73,7 +73,7 @@ Disassembly of section .text:
   dc:	00000013          	nop
   e0:	00000013          	nop
   e4:	1c834393          	xori	t2,t1,456
-  e8:	f19ff06f          	j	0 <main>
+  e8:	00008067          	ret
 
 00000000000000ec <SLTIU_Inst>:
   ec:	00100313          	li	t1,1
@@ -82,7 +82,7 @@ Disassembly of section .text:
   f8:	00000013          	nop
   fc:	00000013          	nop
  100:	00233393          	sltiu	t2,t1,2
- 104:	efdff06f          	j	0 <main>
+ 104:	00008067          	ret
 
 0000000000000108 <SLLI_Inst>:
  108:	00100313          	li	t1,1
@@ -91,7 +91,7 @@ Disassembly of section .text:
  114:	00000013          	nop
  118:	00000013          	nop
  11c:	00231393          	slli	t2,t1,0x2
- 120:	ee1ff06f          	j	0 <main>
+ 120:	00008067          	ret
 
 0000000000000124 <SRLI_Inst>:
  124:	00800313          	li	t1,8
@@ -100,7 +100,7 @@ Disassembly of section .text:
  130:	00000013          	nop
  134:	00000013          	nop
  138:	00335393          	srli	t2,t1,0x3
- 13c:	ec5ff06f          	j	0 <main>
+ 13c:	00008067          	ret
 
 0000000000000140 <SRAI_Inst>:
  140:	ff800313          	li	t1,-8
@@ -109,7 +109,7 @@ Disassembly of section .text:
  14c:	00000013          	nop
  150:	00000013          	nop
  154:	40335393          	srai	t2,t1,0x3
- 158:	ea9ff06f          	j	0 <main>
+ 158:	00008067          	ret
 
 000000000000015c <ADD_Inst>:
  15c:	00100313          	li	t1,1
@@ -119,7 +119,7 @@ Disassembly of section .text:
  16c:	00000013          	nop
  170:	00000013          	nop
  174:	00730e33          	add	t3,t1,t2
- 178:	e89ff06f          	j	0 <main>
+ 178:	00008067          	ret
 
 000000000000017c <SLT_Inst>:
  17c:	00100313          	li	t1,1
@@ -129,7 +129,7 @@ Disassembly of section .text:
  18c:	00000013          	nop
  190:	00000013          	nop
  194:	00732e33          	slt	t3,t1,t2
- 198:	e69ff06f          	j	0 <main>
+ 198:	00008067          	ret
 
 000000000000019c <SLTU_Inst>:
  19c:	00100313          	li	t1,1
@@ -139,7 +139,7 @@ Disassembly of section .text:
  1ac:	00000013          	nop
  1b0:	00000013          	nop
  1b4:	00733e33          	sltu	t3,t1,t2
- 1b8:	e49ff06f          	j	0 <main>
+ 1b8:	00008067          	ret
 
 00000000000001bc <AND_Inst>:
  1bc:	07b00313          	li	t1,123
@@ -149,7 +149,7 @@ Disassembly of section .text:
  1cc:	00000013          	nop
  1d0:	00000013          	nop
  1d4:	00737e33          	and	t3,t1,t2
- 1d8:	e29ff06f          	j	0 <main>
+ 1d8:	00008067          	ret
 
 00000000000001dc <OR_Inst>:
  1dc:	07b00313          	li	t1,123
@@ -159,7 +159,7 @@ Disassembly of section .text:
  1ec:	00000013          	nop
  1f0:	00000013          	nop
  1f4:	00736e33          	or	t3,t1,t2
- 1f8:	e09ff06f          	j	0 <main>
+ 1f8:	00008067          	ret
 
 00000000000001fc <XOR_Inst>:
  1fc:	07b00313          	li	t1,123
@@ -169,7 +169,7 @@ Disassembly of section .text:
  20c:	00000013          	nop
  210:	00000013          	nop
  214:	00734e33          	xor	t3,t1,t2
- 218:	de9ff06f          	j	0 <main>
+ 218:	00008067          	ret
 
 000000000000021c <SLL_Inst>:
  21c:	00100313          	li	t1,1
@@ -179,7 +179,7 @@ Disassembly of section .text:
  22c:	00000013          	nop
  230:	00000013          	nop
  234:	00731e33          	sll	t3,t1,t2
- 238:	dc9ff06f          	j	0 <main>
+ 238:	00008067          	ret
 
 000000000000023c <SRL_Inst>:
  23c:	00800313          	li	t1,8
@@ -189,7 +189,7 @@ Disassembly of section .text:
  24c:	00000013          	nop
  250:	00000013          	nop
  254:	00735e33          	srl	t3,t1,t2
- 258:	da9ff06f          	j	0 <main>
+ 258:	00008067          	ret
 
 000000000000025c <SRA_Inst>:
  25c:	ff800313          	li	t1,-8
@@ -199,7 +199,7 @@ Disassembly of section .text:
  26c:	00000013          	nop
  270:	00000013          	nop
  274:	00731e33          	sll	t3,t1,t2
- 278:	d89ff06f          	j	0 <main>
+ 278:	00008067          	ret
 
 000000000000027c <FMIN_S_Inst>:
  27c:	3f800337          	lui	t1,0x3f800
@@ -215,7 +215,7 @@ Disassembly of section .text:
  2a4:	00000013          	nop
  2a8:	00000013          	nop
  2ac:	282081d3          	fmin.s	ft3,ft1,ft2
- 2b0:	d51ff06f          	j	0 <main>
+ 2b0:	00008067          	ret
 
 00000000000002b4 <FMAX_S_Inst>:
  2b4:	3f800337          	lui	t1,0x3f800
@@ -231,7 +231,7 @@ Disassembly of section .text:
  2dc:	00000013          	nop
  2e0:	00000013          	nop
  2e4:	282091d3          	fmax.s	ft3,ft1,ft2
- 2e8:	d19ff06f          	j	0 <main>
+ 2e8:	00008067          	ret
 
 00000000000002ec <FP_Test>:
  2ec:	0002a303          	lw	t1,0(t0)
